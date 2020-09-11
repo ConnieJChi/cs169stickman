@@ -7,12 +7,12 @@ class HangpersonGame
 
   # def initialize()
   # end
-    
+
   attr_accessor :word
   attr_accessor :guesses
   attr_accessor :wrong_guesses
-    
-    
+
+
   def initialize(word)
     @word = word
     @guesses = ""
@@ -20,22 +20,22 @@ class HangpersonGame
     @guess_list = []
     @wrong_guess_list = []
   end
-    
+
   def guess(word)
     if word == "" or word == nil
        raise ArgumentError, 'Argument is an empty string'
     elsif word =~ /[^a-zA-Z]/
         raise ArgumentError, 'Argument is not a letter'
     end
-      
+
     word = word.downcase
-      
+
     if @guess_list.include? word or @wrong_guess_list.include? word
         return false
     end
-      
+
     if @word.include? word
-        @guesses = word 
+        @guesses = word
         @guess_list.append(word)
         return true
     else
@@ -44,7 +44,7 @@ class HangpersonGame
         return true
     end
   end
-    
+
   def word_with_guesses
       ret_str = ""
       @word.split("").each do |c|
@@ -54,10 +54,10 @@ class HangpersonGame
               ret_str = ret_str + "-"
           end
       end
-      
+
       return ret_str
   end
-    
+
   def check_win_or_lose
       if word_with_guesses == @word
           return :win
@@ -79,7 +79,7 @@ class HangpersonGame
       return http.post(uri, "").body
     }
   end
-    
-    
+
+
 
 end
