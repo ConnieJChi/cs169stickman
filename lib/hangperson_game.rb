@@ -7,9 +7,65 @@ class HangpersonGame
 
   # def initialize()
   # end
-  
+    
+  attr_accessor :word
+  attr_accessor :guesses
+  attr_accessor :wrong_guesses
+    
+    
   def initialize(word)
     @word = word
+    @guesses = ""
+    @wrong_guesses = ""
+    @guess_list = []
+    @wrong_guess_count = 0
+  end
+    
+  def guess(word)
+    if word == "" or word == nil
+       raise ArgumentError, 'Argument is an empty string'
+    elsif word =~ /[^a-zA-Z]/
+        raise ArgumentError, 'Argument is not a letter'
+    end
+      
+    word = word.downcase
+      
+    if word == @guesses or word == @wrong_guesses
+        return false
+    end
+      
+    if @word.include? word
+        @guesses = word 
+        @guess_list.append(word)
+        return true
+    else
+        @wrong_guesses = word
+        @wrong_guess_count += 1
+        return true
+    end
+  end
+    
+  def word_with_guesses
+      ret_str = ""
+      @word.split("").each do |c|
+          if @guess_list.include? c
+              ret_str = ret_str + c
+          else
+              ret_str = ret_str + "-"
+          end
+      end
+      
+      return ret_str
+  end
+    
+  def check_win_or_lose
+      if word_with_guesses == @word
+          return :win
+      elsif @wrong_guess_count >= 7
+          return :lose
+      else
+          return :play
+      end
   end
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
@@ -23,5 +79,7 @@ class HangpersonGame
       return http.post(uri, "").body
     }
   end
+    
+    
 
 end
