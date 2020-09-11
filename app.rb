@@ -45,7 +45,7 @@ class HangpersonApp < Sinatra::Base
     elsif letter.nil?
       flash[:message] = "Invalid guess."
     end
-    
+
     redirect '/show'
 
   end
@@ -65,14 +65,14 @@ class HangpersonApp < Sinatra::Base
   end
 
   get '/win' do
-    if not @game.check_win_or_lose == :win
+    unless @game.check_win_or_lose == :win
       redirect "/show"
     end
     erb :win # You may change/remove this line
   end
 
   get '/lose' do
-    if not @game.check_win_or_lose == :lose
+    unless @game.check_win_or_lose == :lose
       redirect "/show"
     end
     erb :lose # You may change/remove this line
