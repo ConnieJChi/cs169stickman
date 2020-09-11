@@ -18,7 +18,7 @@ class HangpersonGame
     @guesses = ""
     @wrong_guesses = ""
     @guess_list = []
-    @wrong_guess_count = 0
+    @wrong_guess_list = []
   end
     
   def guess(word)
@@ -30,7 +30,7 @@ class HangpersonGame
       
     word = word.downcase
       
-    if word == @guesses or word == @wrong_guesses
+    if @guess_list.include? word or @wrong_guess_list.include? word
         return false
     end
       
@@ -40,7 +40,7 @@ class HangpersonGame
         return true
     else
         @wrong_guesses = word
-        @wrong_guess_count += 1
+        @wrong_guess_list.append(word)
         return true
     end
   end
@@ -61,7 +61,7 @@ class HangpersonGame
   def check_win_or_lose
       if word_with_guesses == @word
           return :win
-      elsif @wrong_guess_count >= 7
+      elsif @wrong_guess_list.length >= 7
           return :lose
       else
           return :play
